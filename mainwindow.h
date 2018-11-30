@@ -12,11 +12,16 @@ class myThread;
 
 class myThread : public QThread
 {
+   Q_OBJECT
+
 public:
-    bool m_blMainQuit;
-    QCustomPlot *customPlot;
+    explicit myThread(QObject *parent = nullptr);
 public:
     void run();
+    void init(QCustomPlot *apPlot);
+public:
+    bool m_blMainQuit;
+    QCustomPlot *m_Plot;
 };
 
 class MainWindow : public QMainWindow
@@ -26,7 +31,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    void setupQuadraticDemo(QCustomPlot *customPlot);
+
 
 private slots:
     void on_btn_st_clicked();
