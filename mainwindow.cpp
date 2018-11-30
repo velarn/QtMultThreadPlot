@@ -7,6 +7,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    ui->btn_st->setText("Start");
+
     myth = new myThread;
     myth->init(ui->PlotRAW);
     connect(myth,&myThread::message,this,&MainWindow::receiveMessage);
@@ -14,18 +16,31 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
+    if(myth->isRunning())
+    {
+        myth->m_blMainQuit = true;
+        myth->wait();
+        qDebug()<<"Before Quit main Thread,kill the sub thread";
+    }
     delete ui;
 }
 
 void MainWindow::on_btn_st_clicked()
 {
-
-    myth->m_blMainQuit = false;
-    //setupQuadraticDemo();
-    //Call start() not block;
-    //Call run() will be blocked;
-    myth->start();
-    qDebug()<<"After Run";
+    if(myth->isRunning())
+    {
+        ui->btn_st->setText("Start");
+        myth->m_blMainQuit = true;
+        myth->wait();
+        qDebug()<<"Kill the sub thread";
+    }
+    else
+    {
+        ui->btn_st->setText("Stop");
+        myth->m_blMainQuit = false;
+        myth->start();
+        qDebug()<<"Start a new sub thread";
+    }
 }
 
 void MainWindow::receiveMessage(const int aiNum)
