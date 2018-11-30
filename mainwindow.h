@@ -13,7 +13,8 @@ class myThread;
 class myThread : public QThread
 {
    Q_OBJECT
-
+signals:
+    void message(const int aiNumo);
 public:
     explicit myThread(QObject *parent = nullptr);
 public:
@@ -35,7 +36,7 @@ public:
 
 private slots:
     void on_btn_st_clicked();
-
+    void receiveMessage(const int aiNum);
 private:
     Ui::MainWindow *ui;
     myThread *myth;
