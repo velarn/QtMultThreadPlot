@@ -27,11 +27,13 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    qcustomplot.cpp
+    qcustomplot.cpp \
+    vthread.cpp
 
 HEADERS += \
         mainwindow.h \
-    qcustomplot.h
+    qcustomplot.h \
+    vthread.h
 
 FORMS += \
         mainwindow.ui

@@ -4,26 +4,14 @@
 #include <QMainWindow>
 #include <QThread>
 #include <qcustomplot.h>
+#include "vthread.h"
 
 namespace Ui {
 class MainWindow;
 class myThread;
 }
 
-class myThread : public QThread
-{
-   Q_OBJECT
-signals:
-    void message(const int aiNumo);
-public:
-    explicit myThread(QObject *parent = nullptr);
-public:
-    void run();
-    void init(QCustomPlot *apPlot);
-public:
-    bool m_blMainQuit;
-    QCustomPlot *m_Plot;
-};
+
 
 class MainWindow : public QMainWindow
 {
